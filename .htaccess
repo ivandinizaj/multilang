@@ -1,0 +1,9 @@
+RewriteEngine on
+
+# Nao aplica o redirecionamento caso 
+# o que esteja sendo acessado seja um arquivo ou pasta.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redireciona para o arquivo index.php
+RewriteRule . index.php
