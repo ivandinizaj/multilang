@@ -5,14 +5,13 @@ class Lang
 
 	public static $langs 	 = ['pt','en'];
 	public static $lang 	 = 'en';
-	public static $param 	 = 1;
+	public static $param 	 = 0;
 	public static $variaveis = []; 	//local 
 	public static $time 	 = 7; 	//quantidade
 
 	public static function init()
 	{
-		$lang = self::checklang();
-
+		$lang = self::checklang(BASE_URI);
 		self::import($lang);
 	}
 
@@ -80,9 +79,9 @@ class Lang
 	 * 
 	 * @return [type] [description]
 	 */
-	public static function checklang()
+	public static function checklang( $baseuri = null)
 	{
-		$request = trim( parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH), "/" );
+		$request = trim( parse_url( str_replace($baseuri, '', $_SERVER['REQUEST_URI']), PHP_URL_PATH), "/" );
 		$params  = explode('/',$request);
 
 		/**
@@ -112,7 +111,7 @@ class Lang
 		}
 
 
-		return self::redirect( BASE_URL.'/'.self::$lang );
+		return self::redirect( BASE_URL.self::$lang );
 
 	}
 
